@@ -90,12 +90,6 @@ class Yeast(models.Model):
     name = models.CharField(max_length=80)
     manufacturer_id = models.CharField(max_length=20)
 
-class Comment(models.Model):
-    def __unicode__(self):
-        return self.comment
-    comment = models.CharField(max_length=3000)
-    email = models.CharField(max_length=30)
-
 
 
 

@@ -10,6 +10,13 @@
     Total Boil: {{ brewday.totalboil }}m<br>
     Total Steep: {{ brewday.totalsteep }}m<br>
     Target OG: {{ brewday.targetog }} - Actual OG: {{ brewday.og }}<br>
+    Target FG: {{ brewday.targetfg }} - Actual FG:
+    {% if brewday.fg != 0 %}
+        {{ brewday.fg }}
+    {% else %}
+        Pending
+    {% endif %}
+    <br>
     <br>
     Notes: {{ brewday.notes }}<br>
     <br>
@@ -18,13 +25,6 @@
     <ul>
         {% for fermentationstep in brewday.fermentationstep_set.all %}
             <li>{{ fermentationstep.name }}: {{  fermentationstep.days }} days<br>
-                Target FG: {{ fermentationstep.targetfg }} - Actual FG:
-                {% if fermentationstep.fg != 0 %}
-                    {{ fermentationstep.fg }}
-                {% else %}
-                    Pending
-                {% endif %}
-                <br>
                 Notes: {{ fermentationstep.notes }}
             </li>
         {% endfor %}

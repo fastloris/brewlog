@@ -15,6 +15,8 @@ class BrewDay(models.Model):
     notes = models.CharField(max_length=3000)
     targetog = models.DecimalField('Target OG',decimal_places=4,max_digits=6)
     og = models.DecimalField('OG',decimal_places=4,max_digits=6)
+    targetfg = models.DecimalField('Target FG',decimal_places=4,max_digits=6)
+    fg = models.DecimalField('FG',decimal_places=4,max_digits=6)
 
 # the following objects are part of a single brew
 
@@ -26,8 +28,6 @@ class FermentationStep(models.Model):
     order = models.IntegerField()
     days = models.IntegerField()
     notes = models.CharField(max_length=3000)
-    targetfg = models.DecimalField('Target FG',decimal_places=4,max_digits=6)
-    fg = models.DecimalField('FG',decimal_places=4,max_digits=6)
 
 # parts of worts
 

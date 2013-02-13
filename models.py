@@ -4,7 +4,7 @@ from django.db import models
 
 # an object representing a single brew day
 
-class BrewDay(Recipe, models.Model):
+class BrewDay(models.Model):
     date = models.DateField()
     brewer = models.CharField(max_length=80)
     name = models.CharField(max_length=80)
@@ -15,7 +15,6 @@ class BrewDay(Recipe, models.Model):
     notes = models.CharField(max_length=3000)
     targetog = models.DecimalField('Target OG',decimal_places=4,max_digits=6)
     og = models.DecimalField('OG',decimal_places=4,max_digits=6)
-    recipe = models.ForeignKey(Recipe,blank=True,null=True)
 
 # the following objects are part of a single brew
 

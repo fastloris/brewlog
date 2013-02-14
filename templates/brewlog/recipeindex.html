@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+
+{% block content %}
+{% if latest_recipe_list %}
+<ul>
+    {% for recipe in latest_recipe_list %}
+    <li><a href="{% url 'brewlog:recipedetail' recipe.id %}">{{ recipe.name }}</a> ({{ recipe.style }})</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No recipes are available.</p>
+{% endif %}
+{% endblock %}

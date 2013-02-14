@@ -2,10 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-# an object representing a single brew day
-
-class BrewDay(models.Model):
-    date = models.DateField()
+class Brew(models.Model):
     brewer = models.CharField(max_length=80)
     name = models.CharField(max_length=80)
     style = models.CharField(max_length=200)
@@ -14,81 +11,59 @@ class BrewDay(models.Model):
     totalsteep = models.IntegerField('Total Steep (m)')
     notes = models.CharField(max_length=3000)
     targetog = models.DecimalField('Target OG',decimal_places=4,max_digits=6)
-    og = models.DecimalField('OG',decimal_places=4,max_digits=6)
     targetfg = models.DecimalField('Target FG',decimal_places=4,max_digits=6)
-    fg = models.DecimalField('FG',decimal_places=4,max_digits=6)
+
+class Recipe(Brew):
+    instructions = models.CharField(max_length=3000)
+
+class BrewDay(Brew):
+    date = models.DateField()
+    og = models.DecimalField('OG',decimal_places=4,max_digits=6)
+    fg = models.DecimalField('FG',decimal_places=4,max_digits=6)    
 
 # the following objects are part of a single brew
 
 class FermentationStep(models.Model):
     def __unicode__(self):
         return self.name
-    brew = models.ForeignKey(BrewDay)
+    ref = models.ForeignKey(Brew)
     name = models.CharField(max_length=80)
     order = models.IntegerField()
     days = models.IntegerField()
     notes = models.CharField(max_length=3000)
 
-# parts of worts
+# ingredients
 
-class Extract(models.Model):
+class Ingredient(models.Model):
     def __unicode__(self):
         return self.name
-    brew = models.ForeignKey(BrewDay)
+    ref = models.ForeignKey(Brew)
     name = models.CharField(max_length=80)
     weight = models.DecimalField(decimal_places=2,max_digits=6)
     weight_unit = models.CharField(max_length=8)
-    addtime = models.IntegerField('Add Time (m)')
-
-class SteepingGrain(models.Model):
-    def __unicode__(self):
-        return self.name
-    brew = models.ForeignKey(BrewDay)
-    name = models.CharField(max_length=80)
-    weight = models.DecimalField(decimal_places=2,max_digits=6)
-    weight_unit = models.CharField(max_length=8)
+    
+class Extract(Ingredient):
     starttime = models.IntegerField('Start Time (m)')
-    endtime = models.IntegerField('Start Time (m)')
 
-class Hop(models.Model):
-    def __unicode__(self):
-        return self.name
-    brew = models.ForeignKey(BrewDay)
-    name = models.CharField(max_length=80)
-    weight = models.DecimalField(decimal_places=2,max_digits=6)
-    weight_unit = models.CharField(max_length=8)
+class SteepingGrain(Ingredient):
     starttime = models.IntegerField('Start Time (m)')
     endtime = models.IntegerField('End Time (m)')
 
-class Adjunct(models.Model):
-    def __unicode__(self):
-        return self.name
-    weight = models.DecimalField(decimal_places=2,max_digits=6)
-    weight_unit = models.CharField(max_length=8)
-    brew = models.ForeignKey(BrewDay)
-    name = models.CharField(max_length=80)
-    addtime = models.IntegerField('Add Time (m)')
-
-class OtherIngredient(models.Model):
-    def __unicode__(self):
-        return self.name
-    brew = models.ForeignKey(BrewDay)
-    weight = models.DecimalField(decimal_places=2,max_digits=6)
-    weight_unit = models.CharField(max_length=8)
-    name = models.CharField(max_length=80)
+class Hop(Ingredient):
     starttime = models.IntegerField('Start Time (m)')
     endtime = models.IntegerField('End Time (m)')
-    addtime = models.IntegerField('Add Time (m)')
 
+class Adjunct(Ingredient):
+    starttime = models.IntegerField('Start Time (m)')
+    endtime = models.IntegerField('End Time (m)')
 
-# parts of fermentation
+class OtherIngredient(Ingredient):
+    starttime = models.IntegerField('Start Time (m)')
+    endtime = models.IntegerField('End Time (m)')
 
-class Yeast(models.Model):
-    def __unicode__(self):
-        return self.name
-    brew = models.ForeignKey(BrewDay)
-    name = models.CharField(max_length=80)
-    manufacturer_id = models.CharField(max_length=20)
+class Yeast(Ingredient):
+    fermentation_step = models.IntegerField()
+
 
 
 

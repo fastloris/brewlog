@@ -6,7 +6,7 @@
 {% if latest_brewday_list %}
     <ul>
         {% for brewday in latest_brewday_list %}
-        <li><a href="{% url 'brewlog:detail' brewday.id %}">{{ brewday.name }}</a> ({{ brewday.style }}, {{ brewday.date }})</li>
+        <li><a href="{% url 'brewlog:brewdaydetail' brewday.id %}">{{ brewday.name }}</a> ({{ brewday.style }}, {{ brewday.date }})</li>
         {% endfor %}
     </ul>
 {% else %}

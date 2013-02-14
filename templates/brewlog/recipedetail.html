@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<h1>{{ recipe.name }}</font></h1>
+<i>{{ recipe.style }}, {{ recipe.date }}</i><br>
+<br>
+Brewer: {{ recipe.brewer }}<br>
+Total Boil: {{ recipe.totalboil }}m<br>
+Total Steep: {{ recipe.totalsteep }}m<br>
+Target OG: {{ recipe.targetog }}<br>
+Target FG: {{ recipe.targetfg }}<br>
+<br>
+Notes: {{ recipe.notes }}<br>
+Instructions: {{ recipe.instructions }}<br>
+<br>
+
+<b>Fermentation Step(s)</b>
+<ul>
+    {% for fermentationstep in recipe.fermentationstep_set.all %}
+    <li>{{ fermentationstep.name }}: {{  fermentationstep.days }} days<br>
+        Notes: {{ fermentationstep.notes }}
+    </li>
+    {% endfor %}
+</ul>
+
+<b>Ingredients</b><br>
+<br>
+
+<table border=0 width=800><tr><td width=20></td><td>
+
+    <b>Steeping Grain(s)</b>
+    <ul>
+        {% for steepinggrain in recipe.steepinggrain_set.all %}
+        <li>{{ steepinggrain.name }}: {{  steepinggrain.weight }}{{ steepinggrain.weight_unit }}, added from {{ steepinggrain.starttime }}-{{ steepinggrain.endtime }}m during the steep
+            {% endfor %}
+    </ul>
+
+    <b>Extract(s)</b>
+    <ul>
+        {% for extract in recipe.extract_set.all %}
+        <li>{{ extract.name }}: {{  extract.weight }}{{ extract.weight_unit }}, added
+            {% if extract.addtime == 0 %}
+            immediately
+            {% else %}
+            at {{ extract.addtime }}m
+            {% endif %}
+            into the boil
+            {% endfor %}
+    </ul>
+
+    <b>Yeast(s)</b>
+    <ul>
+        {% for yeast in recipe.yeast_set.all %}
+        <li>{{ yeast.name }} ({{  yeast.manufacturer_id }})
+            {% endfor %}
+    </ul>
+
+    <b>Hop(s)</b>
+    <ul>
+        {% for hop in recipe.hop_set.all %}
+        <li>{{ hop.name }}: {{  hop.weight }}{{ hop.weight_unit }}, added from {{ hop.starttime }}-{{ hop.endtime }}m during the boil
+            {% endfor %}
+    </ul>
+
+    <b>Adjunct(s)</b>
+    <ul>
+        {% for adjunct in recipe.adjunct_set.all %}
+        <li>{{ adjunct.name }}: {{  adjunct.weight }}{{ adjunct.weight_unit }}, added
+            {% if adjunct.addtime == 0 %}
+            immediately
+            {% else %}
+            at {{ adjunct.addtime }}m
+            {% endif %}
+            into the boil
+            {% endfor %}
+    </ul>
+
+    {% if recipe.otheringredient_set.count > 0 %}
+    <b>Other Ingredients(s)</b>
+    <ul>
+        {% for otheringredient in recipe.otheringredient_set.all %}
+        <li>{{ otheringredient.name }}: {{  otheringredient.weight }}{{ otheringredient.weight_unit }}, added
+            {% if otheringredient.addtime == 0 %}
+            immediately
+            {% else %}
+            at {{ otheringredient.addtime }}<m></m>
+            {% endif %}
+            into the boil
+            {% endfor %}
+    </ul>
+    {% endif %}
+
+</td></tr></table>
+
+{% endblock %}

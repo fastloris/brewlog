@@ -1,5 +1,5 @@
 from django.contrib import admin
-from brewlog.models import BrewDay, FermentationStep, Extract, SteepingGrain, Hop, Adjunct, OtherIngredient, Yeast
+from brewlog.models import Recipe, BrewDay, FermentationStep, Extract, SteepingGrain, Hop, Adjunct, OtherIngredient, Yeast
 
 class FermentationInline(admin.TabularInline):
     model = FermentationStep
@@ -40,5 +40,16 @@ class BrewAdmin(admin.ModelAdmin):
     search_fields = ['name', 'notes', 'style']
     date_hierarchy = 'date'
 
+class RecipeAdmin(admin.ModelAdmin):
+    #fieldsets = [
+    #    (None,               {'fields': ['question']}),
+    #    ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
+    #    ]
+    list_display = ('name', 'style')
+    inlines = [FermentationInline,YeastInline,ExtractInline,SteepingGrainInline,HopInline,AdjunctInline,OtherIngredientInline]
+    list_filter = ['style']
+    search_fields = ['name', 'notes', 'style']
+
 admin.site.register(BrewDay, BrewAdmin)
+admin.site.register(Recipe, RecipeAdmin)
 

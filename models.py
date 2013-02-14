@@ -34,40 +34,62 @@ class FermentationStep(models.Model):
 
 # ingredients
 
-class Ingredient(models.Model):
+class Extract(models.Model):
     def __unicode__(self):
         return self.name
-    ref = models.ForeignKey(Brew)
     name = models.CharField(max_length=80)
     weight = models.DecimalField(decimal_places=2,max_digits=6)
     weight_unit = models.CharField(max_length=8)
-    
-class Extract(Ingredient):
+    ref = models.ForeignKey(Brew)
     starttime = models.IntegerField('Start Time (m)')
 
-class SteepingGrain(Ingredient):
-    starttime = models.IntegerField('Start Time (m)')
-    endtime = models.IntegerField('End Time (m)')
-
-class Hop(Ingredient):
-    starttime = models.IntegerField('Start Time (m)')
-    endtime = models.IntegerField('End Time (m)')
-
-class Adjunct(Ingredient):
+class SteepingGrain(models.Model):
+    def __unicode__(self):
+        return self.name
+    name = models.CharField(max_length=80)
+    weight = models.DecimalField(decimal_places=2,max_digits=6)
+    weight_unit = models.CharField(max_length=8)
+    ref = models.ForeignKey(Brew)
     starttime = models.IntegerField('Start Time (m)')
     endtime = models.IntegerField('End Time (m)')
 
-class OtherIngredient(Ingredient):
+class Hop(models.Model):
+    def __unicode__(self):
+        return self.name
+    name = models.CharField(max_length=80)
+    weight = models.DecimalField(decimal_places=2,max_digits=6)
+    weight_unit = models.CharField(max_length=8)
+    ref = models.ForeignKey(Brew)
     starttime = models.IntegerField('Start Time (m)')
     endtime = models.IntegerField('End Time (m)')
 
-class Yeast(Ingredient):
+class Adjunct(models.Model):
+    def __unicode__(self):
+        return self.name
+    name = models.CharField(max_length=80)
+    weight = models.DecimalField(decimal_places=2,max_digits=6)
+    weight_unit = models.CharField(max_length=8)
+    ref = models.ForeignKey(Brew)
+    starttime = models.IntegerField('Start Time (m)')
+    endtime = models.IntegerField('End Time (m)')
+
+class OtherIngredient(models.Model):
+    def __unicode__(self):
+        return self.name
+    name = models.CharField(max_length=80)
+    weight = models.DecimalField(decimal_places=2,max_digits=6)
+    weight_unit = models.CharField(max_length=8)
+    ref = models.ForeignKey(Brew)
+    starttime = models.IntegerField('Start Time (m)')
+    endtime = models.IntegerField('End Time (m)')
+
+class Yeast(models.Model):
+    def __unicode__(self):
+        return self.name
+    name = models.CharField(max_length=80)
+    weight = models.DecimalField(decimal_places=2,max_digits=6)
+    weight_unit = models.CharField(max_length=8)
     fermentation_step = models.IntegerField()
-
-
-
-
-
-
+    ref = models.ForeignKey(Brew)
 
 

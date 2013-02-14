@@ -56,7 +56,7 @@ Notes: {{ recipe.notes }}<br>
     <b>Yeast(s)</b>
     <ul>
         {% for yeast in recipe.yeast_set.all %}
-        <li>{{ yeast.name }} ({{  yeast.manufacturer_id }})
+        <li>{{ yeast.name }}
             {% endfor %}
     </ul>
 

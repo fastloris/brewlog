@@ -1,8 +1,11 @@
 from django.db import models
+import datetime
 
 # Create your models here.
 
 class Brew(models.Model):
+    def __unicode__(self):
+        return self.name
     brewer = models.CharField(max_length=80)
     name = models.CharField(max_length=80)
     style = models.CharField(max_length=200)
@@ -19,7 +22,17 @@ class Recipe(Brew):
 class BrewDay(Brew):
     date = models.DateField()
     og = models.DecimalField('OG',decimal_places=4,max_digits=6)
-    fg = models.DecimalField('FG',decimal_places=4,max_digits=6)    
+    fg = models.DecimalField('FG',decimal_places=4,max_digits=6)
+    recipe_used = models.ForeignKey(Recipe,blank=True,null=True)
+    def remaining_days(self):
+        totaldays = 0
+        for fermentationstep in self.fermentationstep_set.all():
+            totaldays = totaldays + fermentationstep.days
+        return (totaldays)
+    def due_date(self):
+        return (self.date + datetime.timedelta(days=self.remaining_days()))
+
+
 
 # the following objects are part of a single brew
 

@@ -1,19 +1,22 @@
 {% extends "base.html" %}
 
+{% load url from future %}
 
 {% block content %}
 
-<h1>{{ recipe.name }}</font></h1>
-<i>{{ recipe.style }}, {{ recipe.date }}</i><br>
+<h1>{{ recipe.name }}</h1>
+<i>{{ recipe.style }}</i><br>
 <br>
-Brewer: {{ recipe.brewer }}<br>
+Author: {{ recipe.brewer }}<br>
+<br>
 Total Boil: {{ recipe.totalboil }}m<br>
 Total Steep: {{ recipe.totalsteep }}m<br>
 Target OG: {{ recipe.targetog }}<br>
 Target FG: {{ recipe.targetfg }}<br>
 <br>
-Notes: {{ recipe.notes }}<br>
 Instructions: {{ recipe.instructions }}<br>
+<br>
+Notes: {{ recipe.notes }}<br>
 <br>
 
 <b>Fermentation Step(s)</b>

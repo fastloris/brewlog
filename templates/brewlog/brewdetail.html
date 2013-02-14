@@ -1,11 +1,19 @@
 {% extends "base.html" %}
 
+{% load url from future %}
+
 {% block content %}
 
     <h1>{{ brewday.name }}</h1>
-    <i>{{ brewday.style }}, {{ brewday.date }}</i><br>
+    <i>{{ brewday.style }}
+        {% if brewday.recipe_used %}
+            (Recipe: <a href="{% url 'brewlog:recipedetail' brewday.recipe_used.id %}">{{ brewday.recipe_used.name }}</a>)
+        {% endif %}
     <br>
-    Brewer: {{ brewday.brewer }}<br>
+    <br>
+    Started by {{ brewday.brewer }} on {{ brewday.date }}<br>
+    Finishes on {{ brewday.due_date }} ({{ brewday.remaining_days }} days remaining)</i><br>
+    <br>
     Total Boil: {{ brewday.totalboil }}m<br>
     Total Steep: {{ brewday.totalsteep }}m<br>
     Target OG: {{ brewday.targetog }} - Actual OG: {{ brewday.og }}<br>

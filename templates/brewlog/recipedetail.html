@@ -28,11 +28,6 @@ Notes: {{ recipe.notes }}<br>
     {% endfor %}
 </ul>
 
-<b>Ingredients</b><br>
-<br>
-
-<table border=0 width=800><tr><td width=20></td><td>
-
     <b>Steeping Grain(s)</b>
     <ul>
         {% for steepinggrain in recipe.steepinggrain_set.all %}
@@ -94,7 +89,5 @@ Notes: {{ recipe.notes }}<br>
             {% endfor %}
     </ul>
     {% endif %}
-
-</td></tr></table>
 
 {% endblock %}

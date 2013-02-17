@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+
+{% block content %}
+{% if latest_brewday_list %}
+    <ul>
+        {% for brewday in latest_brewday_list %}
+        <li><a href="{% url 'brewlog:brewdaydetail' brewday.id %}">{{ brewday.name }}</a> ({{ brewday.style }}, {{ brewday.date }})</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No brew days are available.</p>
+{% endif %}
+{% endblock %}

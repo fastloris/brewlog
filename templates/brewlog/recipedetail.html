@@ -42,13 +42,7 @@ Notes: {{ recipe.notes }}<br>
         <b>Extract(s)</b>
         <ul>
             {% for extract in brewday.extract_set.all %}
-                <li>{{ extract.name }}: {{  extract.weight }}{{ extract.weight_unit }}, added
-                {% if extract.addtime == 0 %}
-                    immediately
-                {% else %}
-                    at {{ extract.addtime }}m
-                {% endif %}
-                into the boil
+                <li>{{ extract.name }}: {{  extract.weight }}{{ extract.weight_unit }}, added from {{ extract.starttime }}-{{ extract.endtime }} into the boil
             {% endfor %}
         </ul>
     {% endif %}
@@ -89,14 +83,7 @@ Notes: {{ recipe.notes }}<br>
     <b>Adjunct(s)</b>
     <ul>
         {% for adjunct in recipe.adjunct_set.all %}
-        <li>{{ adjunct.name }}: {{  adjunct.weight }}{{ adjunct.weight_unit }}, added
-            {% if adjunct.addtime == 0 %}
-            immediately
-            {% else %}
-            at {{ adjunct.addtime }}m
-            {% endif %}
-            into the boil
-            {% endfor %}
+        <li>{{ adjunct.name }}: {{  adjunct.weight }}{{ adjunct.weight_unit }}, added from {{ adjunct.starttime }}-{{ adjunct.endtime }} into the boil
     </ul>
     {% endif %}
 
@@ -104,13 +91,7 @@ Notes: {{ recipe.notes }}<br>
     <b>Other Ingredients(s)</b>
     <ul>
         {% for otheringredient in recipe.otheringredient_set.all %}
-        <li>{{ otheringredient.name }}: {{  otheringredient.weight }}{{ otheringredient.weight_unit }}, added
-            {% if otheringredient.addtime == 0 %}
-            immediately
-            {% else %}
-            at {{ otheringredient.addtime }}<m></m>
-            {% endif %}
-            into the boil
+        <li>{{ otheringredient.name }}: {{  otheringredient.weight }}{{ otheringredient.weight_unit }}, added from {{ otheringredient.starttime }}-{{ otheringredient.endtime }} into the boil
             {% endfor %}
     </ul>
     {% endif %}

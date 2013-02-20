@@ -12,6 +12,7 @@ class Brew(models.Model):
     notes = models.TextField()
     totalboil = models.IntegerField('Total Boil (m)')
     totalsteep = models.IntegerField('Total Steep (m)')
+    totalmash = models.IntegerField('Total Mash (m)')
     targetog = models.DecimalField('Target OG',decimal_places=4,max_digits=6)
     targetfg = models.DecimalField('Target FG',decimal_places=4,max_digits=6)
 

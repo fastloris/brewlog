@@ -25,12 +25,20 @@ class BrewDay(Brew):
     fg = models.DecimalField('FG',decimal_places=4,max_digits=6)
     recipe_used = models.ForeignKey(Recipe,blank=True,null=True)
     def remaining_days(self):
+        now = datetime.date.today()
+        due = self.due_date()
+        difference = due - now
+        if (difference.days <= 0):
+            return 0
+        else:
+            return difference.days
+    def total_days(self):
         totaldays = 0
         for fermentationstep in self.fermentationstep_set.all():
             totaldays = totaldays + fermentationstep.days
         return (totaldays)
     def due_date(self):
-        return (self.date + datetime.timedelta(days=self.remaining_days()))
+        return (self.date + datetime.timedelta(days=self.total_days()))
 
 # the following objects are part of a single brew
 

@@ -12,7 +12,11 @@
     <br>
     <br>
     Started by {{ brewday.brewer }} on {{ brewday.date }}<br>
-    Finishes on {{ brewday.due_date }} ({{ brewday.remaining_days }} days remaining)</i><br>
+    {% if brewday.remaining_days > 0 %}
+        Finishes on {{ brewday.due_date }} ({{ brewday.remaining_days }} days remaining)</i><br>
+    {% else %}
+        Finished on {{ brewday.due_date }}<br>
+    {% endif %}
     <br>
     Total Boil: {{ brewday.totalboil }}m<br>
     {% if brewday.totalsteep > 0 %}Total Steep: {{ brewday.totalsteep }}m<br>{% endif %}

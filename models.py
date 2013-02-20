@@ -9,15 +9,14 @@ class Brew(models.Model):
     brewer = models.CharField(max_length=80)
     name = models.CharField(max_length=80)
     style = models.CharField(max_length=200)
-    notes = models.CharField(max_length=3000)
+    notes = models.TextField()
     totalboil = models.IntegerField('Total Boil (m)')
     totalsteep = models.IntegerField('Total Steep (m)')
-    notes = models.CharField(max_length=3000)
     targetog = models.DecimalField('Target OG',decimal_places=4,max_digits=6)
     targetfg = models.DecimalField('Target FG',decimal_places=4,max_digits=6)
 
 class Recipe(Brew):
-    instructions = models.CharField(max_length=3000)
+    instructions = models.TextField()
 
 class BrewDay(Brew):
     date = models.DateField()
@@ -32,8 +31,6 @@ class BrewDay(Brew):
     def due_date(self):
         return (self.date + datetime.timedelta(days=self.remaining_days()))
 
-
-
 # the following objects are part of a single brew
 
 class FermentationStep(models.Model):
@@ -43,7 +40,7 @@ class FermentationStep(models.Model):
     name = models.CharField(max_length=80)
     order = models.IntegerField()
     days = models.IntegerField()
-    notes = models.CharField(max_length=3000)
+    notes = models.TextField()
 
 # ingredients
 
@@ -62,6 +59,28 @@ class SteepingGrain(models.Model):
     name = models.CharField(max_length=80)
     weight = models.DecimalField(decimal_places=2,max_digits=6)
     weight_unit = models.CharField(max_length=8)
+    ref = models.ForeignKey(Brew)
+    starttime = models.IntegerField('Start Time (m)')
+    endtime = models.IntegerField('End Time (m)')
+
+class SpecialtyGrain(models.Model):
+    def __unicode__(self):
+        return self.name
+    name = models.CharField(max_length=80)
+    weight = models.DecimalField(decimal_places=2,max_digits=6)
+    weight_unit = models.CharField(max_length=8)
+    mash_temp = models.IntegerField()
+    ref = models.ForeignKey(Brew)
+    starttime = models.IntegerField('Start Time (m)')
+    endtime = models.IntegerField('End Time (m)')
+
+class BaseGrain(models.Model):
+    def __unicode__(self):
+        return self.name
+    name = models.CharField(max_length=80)
+    weight = models.DecimalField(decimal_places=2,max_digits=6)
+    weight_unit = models.CharField(max_length=8)
+    mash_temp = models.IntegerField()
     ref = models.ForeignKey(Brew)
     starttime = models.IntegerField('Start Time (m)')
     endtime = models.IntegerField('End Time (m)')

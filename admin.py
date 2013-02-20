@@ -1,5 +1,5 @@
 from django.contrib import admin
-from brewlog.models import Recipe, BrewDay, FermentationStep, Extract, SteepingGrain, Hop, Adjunct, OtherIngredient, Yeast
+from brewlog.models import Recipe, BrewDay, FermentationStep, Extract, SteepingGrain, SpecialtyGrain, BaseGrain, Hop, Adjunct, OtherIngredient, Yeast
 
 class FermentationInline(admin.TabularInline):
     model = FermentationStep
@@ -16,6 +16,15 @@ class ExtractInline(admin.TabularInline):
 class SteepingGrainInline(admin.TabularInline):
     model = SteepingGrain
     extra = 0
+
+class SpecialtyGrainInline(admin.TabularInline):
+    model = SpecialtyGrain
+    extra = 0
+
+class BaseGrainInline(admin.TabularInline):
+    model = BaseGrain
+    extra = 0
+
 
 class HopInline(admin.TabularInline):
     model = Hop
@@ -35,7 +44,7 @@ class BrewAdmin(admin.ModelAdmin):
     #    ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     #    ]
     list_display = ('name', 'style', 'date')
-    inlines = [FermentationInline,YeastInline,ExtractInline,SteepingGrainInline,HopInline,AdjunctInline,OtherIngredientInline]
+    inlines = [FermentationInline,YeastInline,ExtractInline,SteepingGrainInline,SpecialtyGrainInline,BaseGrainInline,AdjunctInline,OtherIngredientInline]
     list_filter = ['style', 'date']
     search_fields = ['name', 'notes', 'style']
     date_hierarchy = 'date'
@@ -46,7 +55,7 @@ class RecipeAdmin(admin.ModelAdmin):
     #    ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     #    ]
     list_display = ('name', 'style')
-    inlines = [FermentationInline,YeastInline,ExtractInline,SteepingGrainInline,HopInline,AdjunctInline,OtherIngredientInline]
+    inlines = [FermentationInline,YeastInline,ExtractInline,SteepingGrainInline,SpecialtyGrainInline,BaseGrainInline,HopInline,AdjunctInline,OtherIngredientInline]
     list_filter = ['style']
     search_fields = ['name', 'notes', 'style']
 

@@ -1,6 +1,5 @@
 *.log
 *.pot
 *.pyc
-migrations
 local_settings.py
 .idea

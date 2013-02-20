@@ -10,7 +10,8 @@
 Author: {{ recipe.brewer }}<br>
 <br>
 Total Boil: {{ recipe.totalboil }}m<br>
-Total Steep: {{ recipe.totalsteep }}m<br>
+{% if recipe.totalsteep > 0 %}Total Steep: {{ recipe.totalsteep }}m<br>{% endif %}
+{% if recipe.totalmash > 0 %}Total Mash: {{ brewday.totalmash }}m<br>{% endif %}
 Target OG: {{ recipe.targetog }}<br>
 Target FG: {{ recipe.targetfg }}<br>
 <br>
@@ -28,25 +29,47 @@ Notes: {{ recipe.notes }}<br>
     {% endfor %}
 </ul>
 
-    <b>Steeping Grain(s)</b>
-    <ul>
-        {% for steepinggrain in recipe.steepinggrain_set.all %}
-        <li>{{ steepinggrain.name }}: {{  steepinggrain.weight }}{{ steepinggrain.weight_unit }}, added from {{ steepinggrain.starttime }}-{{ steepinggrain.endtime }}m during the steep
+    {%  if recipe.steepinggrain_set.count > 0 %}
+        <b>Steeping Grain(s)</b>
+        <ul>
+            {% for steepinggrain in brewday.steepinggrain_set.all %}
+                <li>{{ steepinggrain.name }}: {{  steepinggrain.weight }}{{ steepinggrain.weight_unit }}, added from {{ steepinggrain.starttime }}-{{ steepinggrain.endtime }}m during the steep
             {% endfor %}
-    </ul>
+        </ul>
+    {% endif %}
 
-    <b>Extract(s)</b>
-    <ul>
-        {% for extract in recipe.extract_set.all %}
-        <li>{{ extract.name }}: {{  extract.weight }}{{ extract.weight_unit }}, added
-            {% if extract.addtime == 0 %}
-            immediately
-            {% else %}
-            at {{ extract.addtime }}m
-            {% endif %}
-            into the boil
+    {%  if recipe.extract_set.count > 0 %}
+        <b>Extract(s)</b>
+        <ul>
+            {% for extract in brewday.extract_set.all %}
+                <li>{{ extract.name }}: {{  extract.weight }}{{ extract.weight_unit }}, added
+                {% if extract.addtime == 0 %}
+                    immediately
+                {% else %}
+                    at {{ extract.addtime }}m
+                {% endif %}
+                into the boil
             {% endfor %}
-    </ul>
+        </ul>
+    {% endif %}
+
+    {%  if recipe.specialtygrain_set.count > 0 %}
+        <b>Specialty Grain(s)</b>
+        <ul>
+            {% for specialtygrain in recipe.specialtygrain_set.all %}
+                <li>{{ specialtygrain.name }}: {{  specialtygrain.weight }}{{ specialtygrain.weight_unit }}, added from {{ specialitygrain.starttime }}-{{ specialitygrain.endtime }}m at {{ specialtygrain.mash_temp }}F during the mash
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {%  if recipe.basegrain_set.count > 0 %}
+        <b>Base Grain(s)</b>
+        <ul>
+            {% for basegrain in recipe.basegrain_set.all %}
+                <li>{{ basegrain.name }}: {{  basegrain.weight }}{{ basegrain.weight_unit }}, added from {{ basegrain.starttime }}-{{ basegrain.endtime }}m at {{ basegrain.mash_temp }}F during the mash
+            {% endfor %}
+        </ul>
+    {% endif %}
 
     <b>Yeast(s)</b>
     <ul>
@@ -62,6 +85,7 @@ Notes: {{ recipe.notes }}<br>
             {% endfor %}
     </ul>
 
+    {% if recipe.adjunct_set.count > 0 %}
     <b>Adjunct(s)</b>
     <ul>
         {% for adjunct in recipe.adjunct_set.all %}
@@ -74,6 +98,7 @@ Notes: {{ recipe.notes }}<br>
             into the boil
             {% endfor %}
     </ul>
+    {% endif %}
 
     {% if recipe.otheringredient_set.count > 0 %}
     <b>Other Ingredients(s)</b>

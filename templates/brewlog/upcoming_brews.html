@@ -1,0 +1,16 @@
+{% load url from future %}
+
+{% block sidebar %}
+<p align=right>
+<br><br>
+<b>Upcoming Finished Beers</b><br><br>
+
+{% if upcoming_brews_list %}
+        {% for brewday in upcoming_brews_list %}
+        <a href="{% url 'brewlog:brewdaydetail' brewday.id %}">{{ brewday.name }}</a> ({{ brewday.remaining_days }} days remaining)<br>
+        {% endfor %}
+{% else %}
+    No beers finishing soon.  Time to brew!<br>
+{% endif %}
+</p>
+{% endblock %}

@@ -84,6 +84,7 @@ Notes: {{ recipe.notes }}<br>
     <ul>
         {% for adjunct in recipe.adjunct_set.all %}
         <li>{{ adjunct.name }}: {{  adjunct.weight }}{{ adjunct.weight_unit }}, added from {{ adjunct.starttime }}-{{ adjunct.endtime }}m into the boil
+        {% endfor %}
     </ul>
     {% endif %}
 

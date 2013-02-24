@@ -15,6 +15,7 @@ class Brew(models.Model):
     totalmash = models.IntegerField('Total Mash (m)')
     targetog = models.DecimalField('Target OG',decimal_places=4,max_digits=6)
     targetfg = models.DecimalField('Target FG',decimal_places=4,max_digits=6)
+    targetabv = models.DecimalField('Target ABV',decimal_places=2,max_digits=5)
 
 class Recipe(Brew):
     instructions = models.TextField()
@@ -23,6 +24,7 @@ class BrewDay(Brew):
     date = models.DateField()
     og = models.DecimalField('OG',decimal_places=4,max_digits=6)
     fg = models.DecimalField('FG',decimal_places=4,max_digits=6)
+    abv = models.DecimalField('ABV',decimal_places=2,max_digits=6)
     recipe_used = models.ForeignKey(Recipe,blank=True,null=True)
     def remaining_days(self):
         now = datetime.date.today()

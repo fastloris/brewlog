@@ -5,7 +5,7 @@
 {% block content %}
 
     <h1>{{ brewday.name }}</h1>
-    <i>{{ brewday.style }}
+    <i>{{ brewday.style }}</i>
         {% if brewday.recipe_used %}
             (Recipe: <a href="{% url 'brewlog:recipedetail' brewday.recipe_used.id %}">{{ brewday.recipe_used.name }}</a>)
         {% endif %}
@@ -29,6 +29,13 @@
         Pending
     {% endif %}
     (Target: {{ brewday.targetfg }})<br>
+    ABV:
+    {% if brewday.abv != 0 %}
+        {{ brewday.abv }}%
+    {% else %}
+        Pending
+    {% endif %}
+    (Target: {{ brewday.targetabv }}%)<br>
     <br>
     Notes: {{ brewday.notes }}<br>
     <br>

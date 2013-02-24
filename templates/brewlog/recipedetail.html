@@ -11,7 +11,7 @@ Author: {{ recipe.brewer }}<br>
 <br>
 Total Boil: {{ recipe.totalboil }}m<br>
 {% if recipe.totalsteep > 0 %}Total Steep: {{ recipe.totalsteep }}m<br>{% endif %}
-{% if recipe.totalmash > 0 %}Total Mash: {{ brewday.totalmash }}m<br>{% endif %}
+{% if recipe.totalmash > 0 %}Total Mash: {{ recipe.totalmash }}m<br>{% endif %}
 Target OG: {{ recipe.targetog }}<br>
 Target FG: {{ recipe.targetfg }}<br>
 <br>
@@ -32,7 +32,7 @@ Notes: {{ recipe.notes }}<br>
     {%  if recipe.steepinggrain_set.count > 0 %}
         <b>Steeping Grain(s)</b>
         <ul>
-            {% for steepinggrain in brewday.steepinggrain_set.all %}
+            {% for steepinggrain in recipe.steepinggrain_set.all %}
                 <li>{{ steepinggrain.name }}: {{  steepinggrain.weight }}{{ steepinggrain.weight_unit }}, added from {{ steepinggrain.starttime }}-{{ steepinggrain.endtime }}m during the steep
             {% endfor %}
         </ul>
@@ -41,7 +41,7 @@ Notes: {{ recipe.notes }}<br>
     {%  if recipe.extract_set.count > 0 %}
         <b>Extract(s)</b>
         <ul>
-            {% for extract in brewday.extract_set.all %}
+            {% for extract in recipe.extract_set.all %}
                 <li>{{ extract.name }}: {{  extract.weight }}{{ extract.weight_unit }}, added at {{ extract.starttime }}m into the boil
             {% endfor %}
         </ul>

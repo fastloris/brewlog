@@ -2,6 +2,10 @@
 
 {% load url from future %}
 
+{% load cache %}
+
+{% cache 3600 brewday_index %}
+
 {% block content %}
 {% if latest_brewday_list %}
     <ul>
@@ -13,3 +17,5 @@
     <p>No brew days are available.</p>
 {% endif %}
 {% endblock %}
+
+{% endcache %}

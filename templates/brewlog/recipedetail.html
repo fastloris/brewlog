@@ -2,6 +2,10 @@
 
 {% load url from future %}
 
+{% load cache %}
+
+{% cache 3600 recipe recipe.id %}
+
 {% block content %}
 
 <h1>{{ recipe.name }}</h1>
@@ -99,3 +103,5 @@ Notes: {{ recipe.notes }}<br>
     {% endif %}
 
 {% endblock %}
+
+{% endcache %}

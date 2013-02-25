@@ -2,6 +2,10 @@
 
 {% load url from future %}
 
+{% load cache %}
+
+{% cache 3600 brewday brewday.id %}
+
 {% block content %}
 
     <h1>{{ brewday.name }}</h1>
@@ -118,3 +122,5 @@
     {% endif %}
 
 {% endblock %}
+
+{% endcache %}

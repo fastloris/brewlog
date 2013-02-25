@@ -2,6 +2,10 @@
 
 {% load url from future %}
 
+{% load cache %}
+
+{% cache 3600 recipe_index %}
+
 {% block content %}
 {% if latest_recipe_list %}
 <ul>
@@ -13,3 +17,5 @@
 <p>No recipes are available.</p>
 {% endif %}
 {% endblock %}
+
+{% endcache %}

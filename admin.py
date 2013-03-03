@@ -44,7 +44,7 @@ class BrewAdmin(admin.ModelAdmin):
     #    ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     #    ]
     list_display = ('name', 'style', 'date')
-    inlines = [FermentationInline,YeastInline,ExtractInline,SteepingGrainInline,SpecialtyGrainInline,BaseGrainInline,AdjunctInline,OtherIngredientInline]
+    inlines = [FermentationInline,HopInline,YeastInline,ExtractInline,SteepingGrainInline,SpecialtyGrainInline,BaseGrainInline,AdjunctInline,OtherIngredientInline]
     list_filter = ['style', 'date']
     search_fields = ['name', 'notes', 'style']
     date_hierarchy = 'date'
@@ -55,7 +55,7 @@ class RecipeAdmin(admin.ModelAdmin):
     #    ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     #    ]
     list_display = ('name', 'style')
-    inlines = [FermentationInline,YeastInline,ExtractInline,SteepingGrainInline,SpecialtyGrainInline,BaseGrainInline,HopInline,AdjunctInline,OtherIngredientInline]
+    inlines = [FermentationInline,HopInline,YeastInline,ExtractInline,SteepingGrainInline,SpecialtyGrainInline,BaseGrainInline,HopInline,AdjunctInline,OtherIngredientInline]
     list_filter = ['style']
     search_fields = ['name', 'notes', 'style']
 
